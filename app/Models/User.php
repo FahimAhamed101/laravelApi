@@ -13,6 +13,9 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> */
      use HasFactory, Notifiable, HasApiTokens;
 
+    public const ROLE_ADMIN = 'admin';
+    public const ROLE_USER = 'user';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -22,6 +25,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
         'address',
         'city',
         'zip_code',
@@ -52,6 +56,11 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === self::ROLE_ADMIN;
     }
 
 public function getImagePathAttribute()
