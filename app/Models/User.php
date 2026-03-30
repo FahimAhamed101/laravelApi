@@ -22,6 +22,13 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'address',
+        'city',
+        'zip_code',
+        'country',
+        'phone_number',
+        'profile_image',
+        'profile_completed'
     ];
 
     /**
@@ -46,4 +53,19 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+public function getImagePathAttribute()
+    {
+        if($this->profile_image)
+        {
+            if (str_starts_with($this->profile_image, 'http://') || str_starts_with($this->profile_image, 'https://')) {
+                return $this->profile_image;
+            }
+
+            return url($this->profile_image);
+        }else {
+            return 'https://cdn.pixabay.com/photo/2017/11/10/05/48/user-2935527_1280.png';
+        }
+    }
+
 }
