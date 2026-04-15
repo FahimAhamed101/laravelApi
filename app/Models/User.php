@@ -77,4 +77,9 @@ public function getImagePathAttribute()
         }
     }
 
+    public function orders()
+    {
+        return $this->hasMany(Order::class)->latest();
+    }
+
 }

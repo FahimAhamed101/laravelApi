@@ -12,13 +12,33 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('address')->nullable();
-            $table->string('city')->nullable();
-            $table->string('country')->nullable();
-            $table->string('zip_code')->nullable();
-            $table->string('phone_number')->nullable();
-            $table->string('profile_image')->nullable();
-            $table->boolean('profile_completed')->default(0);
+            if (!Schema::hasColumn('users', 'address')) {
+                $table->string('address')->nullable();
+            }
+
+            if (!Schema::hasColumn('users', 'city')) {
+                $table->string('city')->nullable();
+            }
+
+            if (!Schema::hasColumn('users', 'country')) {
+                $table->string('country')->nullable();
+            }
+
+            if (!Schema::hasColumn('users', 'zip_code')) {
+                $table->string('zip_code')->nullable();
+            }
+
+            if (!Schema::hasColumn('users', 'phone_number')) {
+                $table->string('phone_number')->nullable();
+            }
+
+            if (!Schema::hasColumn('users', 'profile_image')) {
+                $table->string('profile_image')->nullable();
+            }
+
+            if (!Schema::hasColumn('users', 'profile_completed')) {
+                $table->boolean('profile_completed')->default(0);
+            }
         });
     }
 
@@ -28,7 +48,33 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            if (Schema::hasColumn('users', 'address')) {
+                $table->dropColumn('address');
+            }
+
+            if (Schema::hasColumn('users', 'city')) {
+                $table->dropColumn('city');
+            }
+
+            if (Schema::hasColumn('users', 'country')) {
+                $table->dropColumn('country');
+            }
+
+            if (Schema::hasColumn('users', 'zip_code')) {
+                $table->dropColumn('zip_code');
+            }
+
+            if (Schema::hasColumn('users', 'phone_number')) {
+                $table->dropColumn('phone_number');
+            }
+
+            if (Schema::hasColumn('users', 'profile_image')) {
+                $table->dropColumn('profile_image');
+            }
+
+            if (Schema::hasColumn('users', 'profile_completed')) {
+                $table->dropColumn('profile_completed');
+            }
         });
     }
 };
